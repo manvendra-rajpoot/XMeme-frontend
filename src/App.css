@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.app{
+    /* background-color: #abadad; */
+    height:100vh;
+    display: grid;
+    place-items: center;
+}
+.app__body{
+    display: flex;
+    flex-direction: column;
+    height: 99vh;
+    width: 98vw;
+    background-color: #f8ffff;
+    box-shadow: 0 5px 6px 5px rgba(0, 0, 0, 0.582);
+    place-items: center;
+}
+.app__body>h2{
+    background-color: #8b3b94;
+    color: white;
+    text-align: center;
+    border-radius: 0 0 50px 50px;
+    font-weight: 500;
+    position: sticky;
+    width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app__stream{
+    width: 80%;
+    border: 1px solid gray;
+    border-radius: 6px;
+    padding: 5px 5px 5px 25px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+.app__stream>h3{
+    font-weight: 45 0;
+    margin: 3px 0 8px 0;
+}
+.app__stream>form>h6{
+    color: rgb(68, 68, 68);
+    margin-bottom: 4px;
+}
+.app__stream>form>input{
+    height: 18px;
+    padding: 4px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    width: 90%;
+    border-radius: 5px;
+    outline-width: 0;
+}
+.app__stream>form{
+    display: flex;
+    flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app__stream>form>button{
+    height: 33px;
+    width: 20%;
+    background-color: #065fd4;
+    border: 1px solid blue;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 15px;
+    margin: 5px 0 10px 0;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app__stream>form>button:hover{
+    transition: transform 0.1s ease-in;
+    transform: scale(1.01);
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app__memehub{
+    overflow: scroll;
+    border: 1px solid gray;
+    border-radius: 6px;
+    width: 80%;
+    padding: 5px 5px 5px 25px;
+    display: flex;
+    flex-direction: column;
 }

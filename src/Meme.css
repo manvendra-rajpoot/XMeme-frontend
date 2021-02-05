@@ -1,0 +1,24 @@
+.meme{
+    width: 50%;
+    margin: 10px 0;
+    border: 1px solid #97b3d4;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+.meme>h5{
+    font-weight: 500;
+}
+.meme>p{
+    font-size: 14px;
+    color: rgb(32, 32, 32);
+    padding: 10px  5px;
+}
+.meme>img{
+    max-height: 400px;
+    max-width: 450px;
+    position: center;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
