@@ -1,8 +1,56 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import './App.css';
-import Meme from './Meme';
+import Axios from 'axios';
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
+
 
 function App() {
+
+  const [name, setName] = useState('');
+  const [url, setUrl] = useState('');
+  const [caption, setCaption] = useState('');
+  const [memesCorner, setMemesCorner] = useState([]);
+
+  useEffect(() => {
+    Axios.get('https://xmeme-serverr.herokuapp.com/memes').then((response) => {
+      setMemesCorner(response.data);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   Axios.get('http://localhost:3001/memes/').then((response) => {
+  //     setMemesCorner(response.data);
+  //   });
+  // }, [memesCorner]);
+
+  const submitMeme = () => {
+    Axios.post('https://xmeme-serverr.herokuapp.com/memes', {
+      personName:name, 
+      theUrl:url, 
+      caption:caption,
+    });
+    
+    setMemesCorner([
+      ...memesCorner, 
+      {
+        name:name,
+        url:url,
+        caption:caption,
+    }]);
+  }
+
+  const deleteMeme = (memeid) => {
+    Axios.delete(`https://xmeme-serverr.herokuapp.com/delete/${memeid}`, {
+      personName:name, 
+      theUrl:url, 
+      caption:caption,
+    });
+    setMemesCorner([
+      ...memesCorner
+    ]);
+  }
+
+
   return (
     <div className="app">
       
@@ -12,22 +60,36 @@ function App() {
           <h3>Meme Stream</h3>
           <form>
             <h6>Meme Owner</h6>
-            <input type='text' placeholder='Enter your full name' />
+            <input type='text' placeholder='Enter your full name' onChange={(e) => {
+              setName(e.target.value)
+            }} />
             <h6>Caption</h6>
-            <input type='text' placeholder='Be creative with the caption' />
+            <input type='text' placeholder='Be creative with the caption' onChange={(e) => {
+              setCaption(e.target.value)
+            }} />
             <h6>Meme URL</h6>
-            <input type='url' placeholder='Enter URL of your meme here' />
+            <input type='url' placeholder='Enter URL of your meme here' onChange={(e) => {
+              setUrl(e.target.value)
+            }} />
 
-            <button >Submit Meme</button>
+            <button onClick={submitMeme}>Submit Meme</button>
           </form>
         </div>
 
         <div className="app__memehub">
-          <Meme name='Manoj kr' caption='How u doing? I am fine how u doing. Lets grab a coffe sometime if u donot mind. Sure Why not, See you then!How u doing? I am fine how u doing. Lets grab a coffe sometime if u donot mind. Sure Why not, See you then!' url='https://www.marketingmind.in/wp-content/uploads/2019/03/Meme-Marketin-700x366.jpg' />
-          <Meme name='Bhuvan Bham' caption='How u doing?' url='https://www.rvcj.com/wp-content/uploads/2019/03/Capture-43.png' />
-          <Meme name='Harsh Beniwal' caption='How u doing?' url='https://www.iqmetrix.com/hubfs/Meme%2021.jpg' />
-          <Meme name='Ashish Chanchalani' caption='How u doing?' url='https://media.newyorker.com/photos/59097a981c7a8e33fb390030/16:9/w_1280,c_limit/Hsu-Jill-Memes.jpg' />
-          <Meme name='Drake D' caption='How u doing?' url='https://3c534w2w7sa3ma8ved14ax12-wpengine.netdna-ssl.com/wp-content/uploads/2020/07/Copy-of-Untitled-2020-07-08T105340.290-1080x630.png' />
+  
+          {memesCorner.slice(0).reverse().map(({id,name,url,caption}) => {
+            return(
+              <div className='meme'>
+                <div className="meme__action">
+                  <h5>{name}</h5>
+                  <button onClick={() => {deleteMeme(id)}}> <DeleteForeverRoundedIcon /> </button>
+                </div>
+                <p>{caption}</p>
+                <img src={url} alt="meme"/>
+              </div>
+            );
+          })}
         </div>
 
       </div>
